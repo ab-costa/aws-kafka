@@ -1,15 +1,15 @@
 package br.com.abcosta.kafka.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.abcosta.kafka.aws.S3Util;
+import br.com.abcosta.kafka.aws.S3UploadFile;
 
-@RestController
+@Controller
 public class MainController {
 
     @GetMapping("")
@@ -28,7 +28,7 @@ public class MainController {
         String message = "";
          
         try {
-            S3Util.uploadFile(fileName, multipart.getInputStream());
+            S3UploadFile.uploadFile(fileName, multipart.getInputStream());
             message = "Your file has been uploaded successfully!";
         } catch (Exception ex) {
             message = "Error uploading file: " + ex.getMessage();

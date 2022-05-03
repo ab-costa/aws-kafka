@@ -10,22 +10,23 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
-public class S3Util {
+public class S3UploadFile {
 
-    private static final String BUCKET = "your-bucket-name";
+    private static final String BUCKET = "abcosta-bucket";
      
     public static void uploadFile(String fileName, InputStream inputStream)
             throws S3Exception, AwsServiceException, SdkClientException, IOException {
         S3Client client = S3Client.builder().build();
-         
+        System.out.println(">>> UPLOAD FILE");
         PutObjectRequest request = PutObjectRequest.builder()
                             .bucket(BUCKET)
                             .key(fileName)
                             .acl("public-read")
                             .contentType("text/csv")
                             .build();
-         
+        System.out.println(">>> UPLOAD FILE");
         client.putObject(request,
                 RequestBody.fromInputStream(inputStream, inputStream.available()));
+        System.out.println(">>> UPLOAD FILE");
     }
 }
