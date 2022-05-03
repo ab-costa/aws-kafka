@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.abcosta.kafka.aws.S3DownloadFile;
 import br.com.abcosta.kafka.aws.S3UploadFile;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -53,29 +54,30 @@ public class MainController {
         System.out.println(">>>>> DOWNLOAD FILE");
         System.out.println(fileName);
 
-        String bucket = "abcosta-bucket";
-        String key = fileName;
+        S3DownloadFile.downloadFile(fileName);
+        // String bucket = "abcosta-bucket";
+        // String key = fileName;
 
-        S3Client client = S3Client.builder().build();
+        // S3Client client = S3Client.builder().build();
 
-        GetObjectRequest request = GetObjectRequest.builder()
-                                                   .bucket(bucket)
-                                                   .key(key)
-                                                   .build();
+        // GetObjectRequest request = GetObjectRequest.builder()
+        //                                            .bucket(bucket)
+        //                                            .key(key)
+        //                                            .build();
 
-        ResponseInputStream<GetObjectResponse> response = client.getObject(request);
+        // ResponseInputStream<GetObjectResponse> response = client.getObject(request);
 
-        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(key));
+        // BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(key));
 
-        byte[] buffer = new byte[4096];
-        int bytesRead = -1;
+        // byte[] buffer = new byte[4096];
+        // int bytesRead = -1;
          
-        while ((bytesRead = response.read(buffer)) !=  -1) {
-            outputStream.write(buffer, 0, bytesRead);
-        }
+        // while ((bytesRead = response.read(buffer)) !=  -1) {
+        //     outputStream.write(buffer, 0, bytesRead);
+        // }
                              
-        response.close();
-        outputStream.close();
+        // response.close();
+        // outputStream.close();
 
         System.out.println(">>>>> ANTES DE RENDERIZAR A PÁGINA DOWNLOAD");
 
